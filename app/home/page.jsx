@@ -10,6 +10,7 @@ import { DefaultLocationSearch } from "@/components/default-location";
 import { Button } from "@/components/ui/button";
 import { useEstimateInfo } from "@/store/estimateData";
 import { SolarAreaCalculator } from "@/utils/solarUtils";
+import { MapPolygon } from "@/components/map-visual-polygon";
 
 export default function Home() {
   const markers = useMarkers((state) => state.locations);
@@ -64,6 +65,8 @@ export default function Home() {
     setEstimate({});
   };
 
+  const pathForPolygon = markers.map((marker) => marker.location);
+
   return (
     <div className="flex flex-row justify-between">
       <div className="h-[75vh] w-[50vw]">
@@ -81,6 +84,19 @@ export default function Home() {
             onClick={onMapClick}
           >
             <PoiMarkers pois={markers} />
+            {markers.length >= 3 && (
+              <MapPolygon
+                paths={pathForPolygon}
+                options={{
+                  fillColor: "#00FF00",
+                  fillOpacity: 0.3,
+                  strokeColor: "#00FF00",
+                  strokeOpacity: 0.8,
+                  strokeWeight: 2,
+                  clickable: false,
+                }}
+              />
+            )}
           </Map>
         </APIProvider>
       </div>
