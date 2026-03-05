@@ -14,6 +14,7 @@ import { useState } from "react";
 import { ToastContainer } from "react-toastify";
 import { errorToast, successToast } from "@/utils/toaster";
 import { isValidEmail, isValidName, isValidPassword } from "@/utils/validators";
+import { useRouter } from "next/navigation";
 
 export function SignupForm({ className, ...props }) {
   const init = {
@@ -22,6 +23,7 @@ export function SignupForm({ className, ...props }) {
     userPassword: "",
     userEmail: "",
   };
+  const router = useRouter();
   const [userInfo, setuserInfo] = useState(init);
   const [confirmPwd, setConfirmPwd] = useState("");
   const changeInfoHandler = (objectKey, value) => {
@@ -63,10 +65,9 @@ export function SignupForm({ className, ...props }) {
     const opt = await res.json();
     if (opt.success) {
       successToast(opt.success.message, 2000);
-      successToast(
-        `you can now login by your email as well as your unique id - ${opt.success.newUId} sent to your email`,
-        20000,
-      );
+      setTimeout(() => {
+        router.push("/");
+      }, 2000);
     }
     if (opt.error) {
       errorToast(opt.error, 2500);
