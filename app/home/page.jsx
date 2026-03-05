@@ -16,6 +16,7 @@ export default function Home() {
   const markers = useMarkers((state) => state.locations);
   const addPointerInMap = useMarkers((state) => state.addLocation);
   const setPointerInMap = useMarkers((state) => state.setLocation);
+  const resetPointerInMap = useMarkers((state) => state.resetLocation);
 
   const [address, setAddress] = useState("");
   const [historyData, setHistoryData] = useState([]);
@@ -110,6 +111,7 @@ export default function Home() {
                   key={index}
                   className="min-w-30 h-20 bg-white rounded-lg shadow-md flex flex-col justify-center items-center border"
                   onClick={() => {
+                    resetPointerInMap();
                     loadPointers(item.userPointers, item.userEstimateData);
                   }}
                 >

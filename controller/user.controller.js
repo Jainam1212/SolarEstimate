@@ -42,7 +42,7 @@ export async function loginHandler(body) {
     if (!userExist) {
       return NextResponse.json(
         {
-          error: "no such user exist",
+          error: "no such user exist, please register",
         },
         { status: 400 },
       );
@@ -139,6 +139,17 @@ export async function registerHandler(body) {
       );
     }
     await connectDB();
+    const doesAlreadyExist = await UserModel.findOne({
+      userEmail: dbObj.userEmail,
+    });
+    if (doesAlreadyExist) {
+      return NextResponse.json(
+        { error: "user already exist, please login" },
+        {
+          status: 400,
+        },
+      );
+    }
     const userSaved = await newUser.save();
     const userToken = jwt.sign({ userId, userEmail }, secretKey, {
       expiresIn: "1d",
