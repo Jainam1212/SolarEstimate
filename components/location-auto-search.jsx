@@ -101,7 +101,9 @@ export const PlaceAutocomplete = ({ onEstimateSaved }) => {
         disabled={calculatingEstimaate}
       >
         {" "}
-        {calculatingEstimaate ? "Calculating..." : "Get Estimate"}{" "}
+        {calculatingEstimaate
+          ? "Calculating Estimates..."
+          : "Get Estimate"}{" "}
       </Button>
     </div>
   );
