@@ -65,6 +65,10 @@ export default function Home() {
     setPointerInMap([]);
     setEstimate({});
   };
+  const undoMarkerHandler = () => {
+    const prevMarkers = markers.filter((_, i) => i !== markers.length - 1);
+    setPointerInMap(prevMarkers);
+  };
 
   const pathForPolygon = markers.map((marker) => marker.location);
 
@@ -131,9 +135,20 @@ export default function Home() {
             )}
           </div>
         </div>
-        <Button className={"cursor-pointer"} onClick={newEstimateHandler}>
-          Calculate new estimates
-        </Button>
+        <div className="flex flex-row w-full">
+          <Button
+            className={"cursor-pointer mr-4"}
+            onClick={newEstimateHandler}
+          >
+            Clear markers
+          </Button>
+          <Button
+            className={"cursor-pointer"}
+            onClick={() => undoMarkerHandler()}
+          >
+            Undo a marker
+          </Button>
+        </div>
         <div className="bg-neutral-100 rounded-xl flex flex-col p-4 my-2 h-[50vh] overflow-y-auto">
           <h1 className="font-bold text-lg mb-4">Description</h1>
 
