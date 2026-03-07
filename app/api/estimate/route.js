@@ -24,6 +24,21 @@ export async function POST(req) {
   try {
     await connectDB();
     const body = await req.json();
+    const currentCredits = await CreditModel.findOne({
+      userId: isVerified.userId,
+    });
+    const currentRequestsMade = await EstimateModel.find({
+      userId: isVerified.userId,
+    });
+    if (currentRequestsMade.length > (currentCredits?.credits || 0) + 5) {
+      return NextResponse.json(
+        {
+          error:
+            "you have reached limit for ai calls for estimate, please but credits in pricing page",
+        },
+        { status: 400 },
+      );
+    }
     const dbObj = {
       userId: isVerified.userId,
       userPointers: body.locationPointers,

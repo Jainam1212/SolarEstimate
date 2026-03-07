@@ -49,8 +49,8 @@ export default function NavigationMenuDemo({ children }) {
                   <ListItem href="/home" title="Hope Page">
                     Calculate Estimate
                   </ListItem>
-                  <ListItem href="/home/guide" title="Introduction">
-                    How to use
+                  <ListItem href="/home/pricing" title="Buy credits">
+                    Pricing
                   </ListItem>
                 </ul>
               </NavigationMenuContent>
